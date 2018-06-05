@@ -8,7 +8,7 @@ using System.Linq;
 
 // ReSharper disable CheckNamespace
 
-namespace CodeCave.Equipple.Extensions
+namespace System
 {
     /// <summary>
     /// A collection of extensions for <see cref="string"/> class
