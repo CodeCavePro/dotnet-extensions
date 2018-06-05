@@ -3,8 +3,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 // ReSharper disable once CheckNamespace
+
 namespace System.IO
 {
+    /// <summary>
+    /// Extensions for <see cref="FileInfo"/> class
+    /// </summary>
     public static class FileInfoExtensions
     {
         public static readonly Regex UnicodeLetters;

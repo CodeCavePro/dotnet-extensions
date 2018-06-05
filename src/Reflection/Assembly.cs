@@ -2,10 +2,11 @@ using System.IO;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
+
 namespace System.Reflection
 {
     /// <summary>
-    /// Embedded resource manager helper class, used in order to access resources embedded into this and other assemblies
+    /// Extensions for <see cref="Assembly"/> class
     /// </summary>
     public static class AssemblyExtensions
     {
