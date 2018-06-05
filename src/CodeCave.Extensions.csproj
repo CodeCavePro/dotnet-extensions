@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.6;netstandard2.0;net452</TargetFrameworks>
+    <RootNamespace>CodeCave.Extensions</RootNamespace>
+    <AssemblyName>CodeCave.Extensions</AssemblyName>
+    <Authors>Zhmayev Yaroslav aka Salaros</Authors>
+    <Company>CodeCave, PUE</Company>
+    <Description>A set of useful extensions for .NET (works for old .NET Framework 4.5.x and .NET Standard 1.6+)</Description>
+    <Copyright>Copyright 2018 (c) CodeCave, PUE</Copyright>
+    <PackageLicenseUrl>https://github.com/CodeCavePro/dotnet-extensions/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/CodeCavePro/dotnet-extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CodeCavePro/dotnet-extensions</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageTags>.NET, dotnet, .NET Core, extensions, extension</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <OutputPath>..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>..\bin\Release\</OutputPath>
+  </PropertyGroup>
+
+</Project>
