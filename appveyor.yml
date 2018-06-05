@@ -32,9 +32,11 @@ environment:
 init:
 - ps: |
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    $github_last_release=(Invoke-WebRequest -Uri https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases/latest) -join '`n' | ConvertFrom-Json
-    $github_tag_name=$github_last_release.tag_name
-    if (!$github_tag_name) { $github_tag_name = "1.0.0" }
+    try {
+        $github_last_release=(Invoke-WebRequest -Uri https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases/latest) -join '`n' | ConvertFrom-Json
+        $github_tag_name=$github_last_release.tag_name
+    } catch { }
+    if (!$github_tag_name) { $github_tag_name = $env:APPVEYOR_BUILD_VERSION }
 
     $env:VERSION_SIMPLE = "$github_tag_name.$env:APPVEYOR_BUILD_NUMBER"
     $env:VERSION_INFORMATIONAL = $github_tag_name
