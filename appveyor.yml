@@ -85,11 +85,7 @@ assembly_info:
 # Run scripts below before
 before_build:
   - where msbuild
-  - cmd: msbuild /t:Clean 
-
-# To run your custom scripts instead of automatic MSBuild
-build_script:
-  - cmd: msbuild /t:Rebuild /p:Configuration=$(CONFIGURATION)
+  - cmd: msbuild /t:Clean
 
 # NuGet files qualified as artifacts
 artifacts:
