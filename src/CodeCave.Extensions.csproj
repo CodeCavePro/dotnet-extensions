@@ -21,12 +21,8 @@
     <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <OutputPath>..\bin\Debug\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <OutputPath>..\bin\Release\</OutputPath>
+  <PropertyGroup>
+    <OutputPath>..\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
