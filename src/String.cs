@@ -34,9 +34,7 @@ namespace System
                 return 0.0;
 
             if (double.TryParse(fraction, out var result))
-            {
                 return result;
-            }
 
             var split = fraction.Split(' ', '/');
             var has2Or3Parts = split.Length == 2 || split.Length == 3;
@@ -47,19 +45,14 @@ namespace System
                               int.TryParse(split[0], out a) && int.TryParse(split[1], out b);
 
             if (!has2Or3Parts || !partsAreInt)
-            {
-                throw new FormatException("Not a valid fraction.");
-            }
+                throw new FormatException($"'{fraction}' is not a valid fraction.");
 
             if (split.Length == 2)
-            {
                 return (double)a / b;
-            }
 
             if (!int.TryParse(split[2], out var c))
-            {
-                throw new FormatException("Not a valid fraction.");
-            }
+                throw new FormatException($"'{fraction}' is not a valid fraction.");
+
             return a + (double)b / c;
         }
 
