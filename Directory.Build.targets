@@ -1,0 +1,8 @@
+<Project>
+
+  <!-- Create and fill with data Revit addin manifest
+  <Target Name="Test" AfterTargets="AfterBuild" Condition="'$(SomeVar)' != ''">
+  </Target>
+  -->
+
+</Project>

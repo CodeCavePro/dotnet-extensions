@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
-
 namespace System.Collections
 {
+    /// <summary>
+    /// A collection of extensions for <see cref="IDictionary"/>.
+    /// </summary>
     public static class DictionaryExtensions
     {
         /// <summary>
@@ -17,10 +19,7 @@ namespace System.Collections
         /// <returns>
         ///   <c>true</c> if the specified key contains key; otherwise, <c>false</c>.
         /// </returns>
-        public static bool ContainsKey<TValue>(this IDictionary<string, TValue> haystack, string key, StringComparison comparer)
-        {
-            return haystack.Keys.Contains(key, comparer);
-        }
+        public static bool ContainsKey<TValue>(this IDictionary<string, TValue> haystack, string key, StringComparison comparer) => haystack.Keys.Contains(key, comparer);
 
         /// <summary>
         /// Merges the specified dictionary with given one and replaces the original content.
@@ -29,11 +28,7 @@ namespace System.Collections
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="haystack">The dictionary to look into.</param>
         /// <param name="other">The other.</param>
-        public static Dictionary<TKey, TValue> Contact<TKey, TValue>(this Dictionary<TKey, TValue> haystack, Dictionary<TKey, TValue> other)
-        {
-            return haystack.ContactLeft<Dictionary<TKey, TValue>, TKey, TValue>(other);
-
-        }
+        public static Dictionary<TKey, TValue> Contact<TKey, TValue>(this Dictionary<TKey, TValue> haystack, Dictionary<TKey, TValue> other) => haystack.ContactLeft<Dictionary<TKey, TValue>, TKey, TValue>(other);
 
         /// <summary>
         /// Merges the specified dictionary with given one and returns it as a result.
@@ -43,12 +38,9 @@ namespace System.Collections
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="haystack">The dictionary to look into.</param>
         /// <param name="others">The other dictionaries to merge with.</param>
-        /// <returns></returns>
+        /// <returns>Merged dictionary.</returns>
         public static TResult Contact<TResult, TKey, TValue>(this TResult haystack, params TResult[] others)
-            where TResult : IDictionary<TKey, TValue>, new()
-        {
-            return haystack.ContactLeft<TResult, TKey, TValue>(others);
-        }
+            where TResult : IDictionary<TKey, TValue>, new() => haystack.ContactLeft<TResult, TKey, TValue>(others);
 
         /// <summary>
         /// Merges the left.
@@ -64,12 +56,15 @@ namespace System.Collections
         {
             var result = new TResult();
             if (others == null)
+            {
                 return result;
+            }
 
-            foreach (var p in (new List<TResult> { haystack }).Concat(others.Where(o => o != null)).SelectMany(src => src))
+            foreach (var p in new List<TResult> { haystack }.Concat(others.Where(o => o != null)).SelectMany(src => src))
             {
                 result[p.Key] = p.Value;
             }
+
             return result;
         }
 
@@ -86,6 +81,11 @@ namespace System.Collections
         public static TResult ContactLeft<TResult, TKey, TValue>(this TResult haystack, Func<TKey, TValue, TValue, TValue> mergeBehavior, params TResult[] others)
             where TResult : IDictionary<TKey, TValue>, new()
         {
+            if (mergeBehavior is null)
+            {
+                throw new ArgumentNullException(nameof(mergeBehavior));
+            }
+
             var result = new TResult();
             var haystacks = new List<TResult> { haystack }
                 .Concat(others);
@@ -93,7 +93,7 @@ namespace System.Collections
             foreach (var kv in haystacks.SelectMany(src => src))
             {
                 result.TryGetValue(kv.Key, out var previousValue);
-                result[kv.Key] = mergeBehavior(kv.Key, kv.Value, previousValue);
+                result[kv.Key] = mergeBehavior.Invoke(kv.Key, kv.Value, previousValue) ?? default;
             }
 
             return result;

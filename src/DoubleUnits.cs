@@ -1,8 +1,11 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 
 namespace System
 {
-    public static class DoubleExtensions
+    /// <summary>
+    /// A collection of extensions for <see cref="double"/>.
+    /// </summary>
+    public static class DoubleUnits
     {
         #region Weight unit conversions
 
@@ -11,14 +14,14 @@ namespace System
         /// </summary>
         /// <param name="kilograms">The kilograms to convert.</param>
         /// <returns></returns>
-        public static double KilogramsToPounds(this double kilograms) { return kilograms * 2.2046226218D; }
+        public static double KilogramsToPounds(this double kilograms) => kilograms * 2.2046226218D;
 
         /// <summary>
         /// Converts pounds to kilograms.
         /// </summary>
         /// <param name="pounds">The pounds to convert.</param>
         /// <returns></returns>
-        public static double PoundsToKg(this double pounds) { return pounds * 0.45359237D; }
+        public static double PoundsToKg(this double pounds) => pounds * 0.45359237D;
 
         #endregion
 
@@ -29,28 +32,28 @@ namespace System
         /// </summary>
         /// <param name="millimeters">The millimeters to convert.</param>
         /// <returns></returns>
-        public static double MillimetersToInches(this double millimeters) { return millimeters * 0.03937007874D; }
+        public static double MillimetersToInches(this double millimeters) => millimeters * 0.03937007874D;
 
         /// <summary>
         /// Converts inches to millimeters.
         /// </summary>
         /// <param name="inches">The inches to convert.</param>
         /// <returns></returns>
-        public static double InchesToMillimeters(this double inches) { return inches * 25.4D; }
+        public static double InchesToMillimeters(this double inches) => inches * 25.4D;
 
         /// <summary>
         /// Converts millimeters to feet.
         /// </summary>
         /// <param name="millimeters">The millimeters.</param>
         /// <returns></returns>
-        public static double MillimetersToFeet(this double millimeters) { return millimeters / 304.8D; }
+        public static double MillimetersToFeet(this double millimeters) => millimeters / 304.8D;
 
         /// <summary>
         /// Converts feet to millimeters.
         /// </summary>
         /// <param name="feet">The amount of feet to convert.</param>
         /// <returns></returns>
-        public static double FeetToMillimeters(this double feet) { return feet * 304.8D; }
+        public static double FeetToMillimeters(this double feet) => feet * 304.8D;
 
         #endregion
 
@@ -61,14 +64,14 @@ namespace System
         /// </summary>
         /// <param name="degrees">The degrees.</param>
         /// <returns></returns>
-        public static double DegreeToRadiants(this double degrees) { return degrees * (Math.PI / 180); }
+        public static double DegreeToRadiants(this double degrees) => degrees * (Math.PI / 180);
 
         /// <summary>
         /// Converts radiants to decimal angle degrees.
         /// </summary>
         /// <param name="radiants">The radiants.</param>
         /// <returns></returns>
-        public static double RadiansToDegree(this double radiants) { return radiants * (180 / Math.PI); }
+        public static double RadiansToDegree(this double radiants) => radiants * (180 / Math.PI);
 
         #endregion
     }

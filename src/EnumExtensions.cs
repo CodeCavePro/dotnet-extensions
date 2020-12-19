@@ -1,5 +1,3 @@
-#region
-
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,14 +6,11 @@ using System.Linq;
 using System.Reflection;
 #endif
 
-#endregion
-
 // ReSharper disable CheckNamespace
-
 namespace System
 {
     /// <summary>
-    /// Extensions for <see cref="Enum"/> class
+    /// Extensions for <see cref="Enum"/> class.
     /// </summary>
     public static class EnumExtensions
     {
@@ -25,7 +20,7 @@ namespace System
         /// <typeparam name="TEnum">The type of the enumeration.</typeparam>
         /// <param name="enumerationValue">The enumeration value.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException">enumerationValue - enumerationValue</exception>
+        /// <exception cref="ArgumentException">enumerationValue - enumerationValue.</exception>
         public static string GetDescription<TEnum>(this TEnum enumerationValue)
             where TEnum : struct
         {
@@ -35,18 +30,23 @@ namespace System
 #else
             var type = enumerationValue.GetType();
             if (!type.IsEnum)
-                throw new ArgumentException($"{nameof(enumerationValue)} must be an enumeration",
+            {
+                throw new ArgumentException(
+                    $"{nameof(enumerationValue)} must be an enumeration",
                     nameof(enumerationValue));
+            }
 
             var memberInfo = type.GetMember(enumerationValue.ToString());
             if (!memberInfo.Any())
+            {
                 return enumerationValue.ToString();
+            }
 
             var attributes = memberInfo.ElementAt(0)?.GetCustomAttributes(typeof(DescriptionAttribute), false);
 #endif
 
             return attributes != null && attributes.Any()
-                ? ((DescriptionAttribute) attributes.ElementAt(0)).Description
+                ? ((DescriptionAttribute)attributes.ElementAt(0)).Description
                 : enumerationValue.ToString();
         }
 
@@ -60,16 +60,15 @@ namespace System
         public static TEnum GetEnumFromDescription<TEnum>(
             this string description,
 #if NETSTANDARD1_6
-            StringComparison comparison = StringComparison.OrdinalIgnoreCase
+            StringComparison comparison = StringComparison.OrdinalIgnoreCase)
 #else
-            StringComparison comparison = StringComparison.InvariantCulture
+            StringComparison comparison = StringComparison.InvariantCulture)
 #endif
-        )
             where TEnum : struct
         {
             var array = Enum.GetValues(typeof(TEnum));
             var list = new List<TEnum>(array.Length);
-            list.AddRange(array.Cast<object>().Select((t, i) => (TEnum) array.GetValue(i)));
+            list.AddRange(array.Cast<object>().Select((t, i) => (TEnum)array.GetValue(i)));
             return list.FirstOrDefault(e => e.GetDescription().Equals(description, comparison));
         }
 
@@ -79,19 +78,10 @@ namespace System
         /// <typeparam name="TEnum">The type of the enumeration.</typeparam>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentException">TEnum</exception>
+        /// <exception cref="ArgumentException">TEnum.</exception>
         public static TEnum ParseEnum<TEnum>(this string value)
-            where TEnum : struct, IConvertible
-        {
-#if !NETSTANDARD1_6
-            if (!typeof(TEnum).IsEnum)
-            {
-                throw new ArgumentException($"{nameof(TEnum)} must be an enumerated type");
-            }
-#endif
-            return (String.IsNullOrWhiteSpace(value))
-                ? default(TEnum)
+            where TEnum : struct, IConvertible => string.IsNullOrWhiteSpace(value)
+                ? default
                 : (TEnum)Enum.Parse(typeof(TEnum), value, true);
-        }
     }
 }
