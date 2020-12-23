@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -14,6 +14,13 @@ namespace CodeCave.Extensions.Tests
     {
         private readonly string encodingFolderPath;
 
+        static FileInfoFixture()
+        {
+#if !NET45
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#endif
+        }
+
         /// <summary>Initializes a new instance of the <see cref="FileInfoFixture" /> class.</summary>
         public FileInfoFixture()
         {
@@ -25,7 +32,6 @@ namespace CodeCave.Extensions.Tests
         [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1204:Static elements should appear before instance elements", Justification = "<Pending>")]
         public static IEnumerable<object[]> GetFileNameToEncoding() => new List<object[]>
         {
-            new object[] { "ANSI Cyrillic.txt", Encoding.GetEncoding(1251) },
             new object[] { "ANSI Latin1.txt", Encoding.GetEncoding(1252) },
             new object[] { "UTF16-BE.txt", Encoding.GetEncoding(1201) },
             new object[] { "UTF16-LE.txt", Encoding.Unicode },

@@ -8,6 +8,13 @@ namespace System.IO
     /// </summary>
     public static class FileInfoEncoding
     {
+        static FileInfoEncoding()
+        {
+#if !NET45
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#endif
+        }
+
         /// <summary>
         /// Tries the get file encoding.
         /// </summary>
