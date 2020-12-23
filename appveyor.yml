@@ -98,6 +98,19 @@ artifacts:
 # Deploy to GitHub releases
 deploy:
   -
+    provider: GitHub
+    auth_token:
+      secure: 2+d0KgCbWQpUR8TZfzvUEzbi4NQP6F/Tt0PUwLn6jXZCyO8FnrFVFJPsFa0QBQFl
+    artifact: NuGet_Files
+    draft: false
+    force_update: true
+    prerelease: false
+    release: "$(APPVEYOR_PROJECT_NAME) v$(APPVEYOR_REPO_TAG_NAME)"
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    on:
+      appveyor_repo_tag: true
+
+  -
     provider: NuGet
     api_key:
       secure: i6oWn60J7ZOM4UuYcvxbuk9OAEp6or+Wq7izyJDPNlcLIhG2UKsxz7G/8erhdY3M
